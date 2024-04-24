@@ -1,0 +1,32 @@
+clc;
+clear all;
+close all;
+f = 900*10^6; %frequency (Hz)
+d = 1:0.1:10^5; %distance between transitter and receiver (m)
+c = 3*10^8; %light velocity (m/s)
+lambda = c/f; %wavelength
+ht = 50; %transmitter height (m)
+hr = 2; %receiver height (m)
+Glos = 1; %product of transmitter and receiver gain in the caseof line of sight
+Gref = 1; %product of transmitter and receiver gain in the caseof reflection
+Pt = 10^-3; %transmitted power is 1mW
+T = -1; %tau (reflection coefficient) is -1
+dlos = sqrt(d.^2+(ht-hr)^2); %d value in line of sight case
+dref = sqrt(d.^2+(ht+hr)^2); %d value in reflection case
+delta = dref-dlos;
+phi = (2*pi*delta)/lambda;
+k = Pt * (lambda/(4*pi))^2;
+Pr = k * (abs((sqrt(Glos)./dlos)+(T*exp((-j)*phi).*(sqrt(Gref)./dref)))).^2;
+Prdb= 10*log10(Pr);
+figure;
+semilogx(d,Pr);
+xlabel('Distance (m)');
+ylabel('Received Power (W)');
+legend('900 MHz freq for m vs. W');
+title('Distance (m) vs. Received power (Watt)');
+figure;
+semilogx(d,Prdb);
+xlabel('Distance (m)');
+ylabel('Received Power (dB)');
+legend('900 MHz freq for m vs. dB');
+title('Distance (m) vs. Received power (dB)');
