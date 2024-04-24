@@ -1,0 +1,31 @@
+clc;
+clear all;
+close all;
+v1=20 %velocities in m/s
+v2=50
+v3=80
+angle=0:0.1:180
+fc=900*10^6
+lambda=(3*10^8)/fc
+fd1=(v1*cosd(angle))/(lambda)
+f1=fc+fd1
+plot(angle,f1,'r');
+xlabel("ANGLE")
+ylabel("DOPPLER SHIFT")
+title("Doppler Efeect")
+hold on;
+fd2=(v2*cosd(angle))/(lambda)
+f2=fc+fd2
+plot(angle,f2,'b');
+xlabel("ANGLE")
+ylabel("DOPPLER SHIFT")
+title("Doppler Efeect")
+hold on
+fd3=(v3*cosd(angle))/(lambda)
+f3=fc+fd3
+plot(angle,f3,'g');
+xlabel("ANGLE")
+ylabel("DOPPLER SHIFT")
+title("Doppler Efeect")
+hold on
+legend('20 m/s','50 m/s','80 m/s')
