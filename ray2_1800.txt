@@ -1,0 +1,32 @@
+clc;
+clear all;
+close all;
+f2 = 1800*10^6; %frequency (Hz)
+d2 = 1:0.1:10^5; %distance between transitter and receiver (m)
+c2 = 3*10^8; %light velocity (m/s)
+lambda2 = c2/f2; %wavelength
+ht2 = 50; %transmitter height (m)
+hr2 = 2; %receiver height (m)
+Glos2 = 1; %product of transmitter and receiver gain in the caseof line of sight
+Gref2 = 1; %product of transmitter and receiver gain in the caseof reflection
+Pt2 = 10^-3; %transmitted power is 1mW
+T2 = -1; %tau (reflection coefficient) is -1
+dlos2 = sqrt(d2.^2+(ht2-hr2)^2); %d value in line of sight case
+dref2 = sqrt(d2.^2+(ht2+hr2)^2); %d value in reflection case
+delta2 = dref2-dlos2;
+phi2 = (2*pi*delta2)/lambda2;
+k2 = Pt2 * (lambda2/(4*pi))^2;
+Pr2 = k2 * (abs((sqrt(Glos2)./dlos2)+(T2*exp((-j)*phi2).*(sqrt(Gref2)./dref2)))).^2;
+Prdb2= 10*log10(Pr2);
+figure;
+semilogx(d2,Pr2);
+xlabel('Distance (m)');
+ylabel('Received Power (W)');
+legend('1800 MHz freq for m vs. W');
+title('Distance (m) vs. Received power (Watt)');
+figure;
+semilogx(d2,Prdb2);
+xlabel('Distance (m)');
+ylabel('Received Power (dB)');
+legend('1800 MHz freq for m vs. dB');
+title('Distance (m) vs. Received power (dB)');
