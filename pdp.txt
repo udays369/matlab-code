@@ -1,0 +1,18 @@
+clc;
+clear all;
+close all;
+delays = [1e-6, 2e-6, 3e-6, 4e-6, 5e-6]; % Delays in seconds
+gains = [-30, -20, -10, -10, 0]; % Gains in dB
+gains_linear = 10.^(gains / 10);
+max_delay_spread=max(delays);
+mean_delay = sum(delays .* gains_linear)/sum(gains_linear);
+rms_delay_spread = sqrt(sum((delays - mean_delay).^2 .*gains_linear)/sum(gains_linear));
+disp('Power Delay Profile Metrics:');
+disp(['Max Delay Spread: ' num2str(max_delay_spread * 1e6) 'microseconds']);
+disp(['Mean Delay: ' num2str(mean_delay * 1e6) 'microseconds']);
+disp(['RMS Delay Spread: ' num2str(rms_delay_spread * 1e6) 'microseconds']);
+figure; % Opens a new figure window
+stem(delays * 1e6, gains, 'filled');
+title('Power Delay Profile');
+xlabel('Delay (microseconds)');
+ylabel('Gain (dB Scale)');
