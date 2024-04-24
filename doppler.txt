@@ -1,0 +1,36 @@
+clc;
+clear all;
+close all;
+%Carrier Frequencies
+fc1= 9*10^8;
+fc2= 18*10^8;
+fc3= 2.4*10^9;
+lambdac1= (3*10^8)/fc1;
+lambdac2= (3*10^8)/fc2;
+lambdac3= (3*10^8)/fc3;
+Vm=100; %Velocity of mobile
+theeta= 0:0.1:180; %Angle between source and reciever
+%Doppler Shift
+fd1=(Vm.*cosd(theeta))/lambdac1; %cosd is cos of argument in degree
+f1=fc1+fd1;
+fd2=(Vm.*cosd(theeta))/lambdac2;
+f2=fc2+fd2;
+fd3=(Vm.*cosd(theeta))/lambdac3;
+f3=fc3+fd3;
+figure;
+title('DOPPLER SHIFT');
+subplot(3,1,1);
+plot(theeta,f1,'r','linewidth',2);
+title('Carrier Freqeuncy: 900 MHz');
+xlabel('Theeta (in Deg)');
+ylabel('Doppler shift (in Hz)');
+subplot(3,1,2);
+plot(theeta,f2,'linewidth',2);
+title('Carrier Freqeuncy: 1800 MHz');
+xlabel('Theeta (in Deg)');
+ylabel('Doppler shift (in Hz)');
+subplot(3,1,3);
+plot(theeta,f3,'g','linewidth',2);
+title('Carrier Freqeuncy: 2.4 GHz');
+xlabel('Theeta (in Deg)');
+ylabel('Doppler shift (in Hz)');
